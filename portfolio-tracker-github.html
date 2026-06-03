@@ -1,0 +1,1047 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+    span.s1 {font-kerning: none}
+    span.s2 {font: 12.0px 'Apple Color Emoji'; font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="de"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;Portfolio Performance Tracker&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.jsdelivr.net/npm/chart.js"&gt;&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;style&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>* {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>body {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>min-height: 100vh;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.container {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>max-width: 1200px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin: 0 auto;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 12px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 20px 60px rgba(0,0,0,0.3);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 30px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>h1 {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #333;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>text-align: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-bottom: 3px solid #667eea;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding-bottom: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>h2 {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #667eea;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-top: 30px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 1.5em;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.gesamtubersicht {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 25px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.gesamtubersicht h2 {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-top: 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.stats-grid {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: grid;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gap: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.stat-card {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 8px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(10px);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.stat-label {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 0.9em;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>opacity: 0.9;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 5px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.stat-value {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 1.8em;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: bold;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.stat-value.positive {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #4CAF50;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.stat-value.negative {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #ff6b6b;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.broker-section {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #f8f9fa;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 25px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-left: 5px solid #667eea;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.broker-section h3 {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #333;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.cash-note {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #fff3cd;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-left: 4px solid #ffc107;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 4px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 0.9em;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #856404;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.input-grid {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: grid;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gap: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.input-group {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>flex-direction: column;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>label {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: 600;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #555;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 5px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 0.95em;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>input[type="number"] {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border: 2px solid #ddd;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 6px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 1em;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transition: border-color 0.3s;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>input[type="number"]:focus {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>outline: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-color: #667eea;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.broker-results {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 8px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-top: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.result-item {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>justify-content: space-between;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 10px 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-bottom: 1px solid #eee;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.result-item:last-child {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-bottom: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.result-label {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #666;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: 600;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.result-value {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: bold;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #333;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.result-value.positive {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #4CAF50;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.result-value.negative {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #ff6b6b;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.chart-container {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>position: relative;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>height: 300px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin: 30px 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 2px 10px rgba(0,0,0,0.1);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.button-group {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: flex;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gap: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-top: 30px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>flex-wrap: wrap;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>justify-content: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>button {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 12px 25px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 1em;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 6px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>cursor: pointer;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transition: all 0.3s;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: 600;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.btn-export {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #4CAF50;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.btn-export:hover {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #45a049;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.btn-reset {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #ff6b6b;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.btn-reset:hover {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #ff5252;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.btn-save {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #667eea;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.btn-save:hover {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #5568d3;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.btn-github-setup {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #24292e;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: white;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.btn-github-setup:hover {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #1f1f23;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>box-shadow: 0 5px 15px rgba(36, 41, 46, 0.3);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.info-box {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #e3f2fd;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-left: 4px solid #2196F3;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 6px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #1565c0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.github-setup {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #f0f7ff;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border: 2px solid #2196F3;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: none;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.github-setup.active {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: block;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.github-setup input {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>width: 100%;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin: 10px 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border: 2px solid #ddd;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 6px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 0.9em;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.github-setup label {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>display: block;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-top: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: 600;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.sync-status {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>padding: 10px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>border-radius: 6px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>text-align: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-weight: 600;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.sync-status.synced {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #d4edda;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #155724;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.sync-status.syncing {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #fff3cd;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #856404;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.sync-status.error {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>background: #f8d7da;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #721c24;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>.footer {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>text-align: center;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>margin-top: 30px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>color: #999;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>font-size: 0.9em;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>@media (max-width: 768px) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>.container {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>padding: 15px;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>.stats-grid {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>grid-template-columns: 1fr;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>.input-grid {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>grid-template-columns: 1fr;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>h1 {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>font-size: 1.5em;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;h1&gt;</span><span class="s2">📊</span><span class="s1"> Portfolio Performance Tracker&lt;/h1&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="info-box"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">💡</span><span class="s1"> Tipp: Deine Daten werden automatisch gespeichert. Du kannst die Seite schließen und später weitermachen.</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- GitHub Setup --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="github-setup" id="githubSetup"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h3&gt;</span><span class="s2">⚙️</span><span class="s1"> GitHub-Synchronisation einrichten&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;label for="githubToken"&gt;GitHub Token (ghp_...):&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;input type="password" id="githubToken" placeholder="Dein GitHub Token hier einfügen"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;label for="githubRepo"&gt;GitHub Username/Repo (z.B. dein-name/portfolio-tracker):&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="githubRepo" placeholder="dein-name/portfolio-tracker"&gt;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button class="btn-save" onclick="setupGitHub()" style="width: 100%; margin-top: 15px;"&gt;</span><span class="s2">✅</span><span class="s1"> GitHub verbinden&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="sync-status" id="syncStatus" style="display: none;"&gt;&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button class="btn-github-setup" onclick="toggleGitHubSetup()" style="width: 100%; margin-bottom: 20px;"&gt;</span><span class="s2">⚙️</span><span class="s1"> GitHub-Sync einrichten&lt;/button&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- GESAMTÜBERSICHT --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="gesamtubersicht"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h2&gt;</span><span class="s2">📈</span><span class="s1"> Gesamtübersicht Alle Broker&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="stats-grid"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="stat-card"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="stat-label"&gt;Startkapital (01.01.)&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="stat-value" id="totalStart"&gt;€ 0,00&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="stat-card"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="stat-label"&gt;Aktueller Wert&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="stat-value" id="totalEnd"&gt;€ 0,00&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="stat-card"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="stat-label"&gt;Kapitalzugänge&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="stat-value" id="totalInflows"&gt;€ 0,00&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="stat-card"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="stat-label"&gt;Kapitalabflüsse&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="stat-value" id="totalOutflows"&gt;€ 0,00&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="stat-card"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="stat-label"&gt;Performance (€)&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="stat-value" id="totalPerformanceEuro"&gt;€ 0,00&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="stat-card"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="stat-label"&gt;Performance (%)&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="stat-value" id="totalPerformancePercent"&gt;0,00%&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="chart-container"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;canvas id="chartGesamt"&gt;&lt;/canvas&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- TRADE REPUBLIC --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="broker-section"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h3&gt;</span><span class="s2">🏦</span><span class="s1"> Trade Republic&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="cash-note"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s2">💰</span><span class="s1"> &lt;strong&gt;Cash-Position:&lt;/strong&gt; Cash wird als Portfolio-Position behandelt. Das Cash von 01.01. wird automatisch berechnet aus: Cash heute - Kapitalzugänge + Kapitalabflüsse.</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="input-grid"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="input-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;label for="tr_securities_start"&gt;Wertpapiere am 01.01. (€)&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="number" id="tr_securities_start" placeholder="0" value="0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="input-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;label for="tr_securities_today"&gt;Wertpapiere heute (€)&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="number" id="tr_securities_today" placeholder="0" value="0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="input-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;label for="tr_cash_today"&gt;Cash heute (€)&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="number" id="tr_cash_today" placeholder="0" value="0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="input-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;label for="tr_inflow"&gt;Kapitalzugänge (€)&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="number" id="tr_inflow" placeholder="0" value="0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="input-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;label for="tr_outflow"&gt;Kapitalabflüsse (€)&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="number" id="tr_outflow" placeholder="0" value="0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="broker-results"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="result-label"&gt;Startkapital 01.01.:&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="result-value" id="tr_start_capital"&gt;€ 0,00&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="result-label"&gt;Gesamtportfolio heute:&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="result-value" id="tr_total_today"&gt;€ 0,00&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="result-label"&gt;Performance (€):&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="result-value" id="tr_perf_euro"&gt;€ 0,00&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="result-label"&gt;Performance (%):&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="result-value" id="tr_perf_percent"&gt;0,00%&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- IBKR --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="broker-section"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h3&gt;</span><span class="s2">🏦</span><span class="s1"> Interactive Brokers (IBKR)&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="cash-note"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s2">💰</span><span class="s1"> &lt;strong&gt;Cash bereits enthalten:&lt;/strong&gt; Der Netto-Liquidierungswert enthält bereits die Cash-Position.</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="input-grid"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="input-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;label for="ibkr_start"&gt;Netto-Liquidierungswert 01.01. (€)&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="number" id="ibkr_start" placeholder="0" value="0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="input-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;label for="ibkr_end"&gt;Netto-Liquidierungswert heute (€)&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="number" id="ibkr_end" placeholder="0" value="0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="input-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;label for="ibkr_inflow"&gt;Kapitalzugänge (€)&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="number" id="ibkr_inflow" placeholder="0" value="0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="input-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;label for="ibkr_outflow"&gt;Kapitalabflüsse (€)&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="number" id="ibkr_outflow" placeholder="0" value="0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="broker-results"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="result-label"&gt;Performance (€):&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="result-value" id="ibkr_perf_euro"&gt;€ 0,00&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="result-label"&gt;Performance (%):&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="result-value" id="ibkr_perf_percent"&gt;0,00%&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="chart-container"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;canvas id="chartIBKR"&gt;&lt;/canvas&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- BITVAVO --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="broker-section"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h3&gt;</span><span class="s2">🏦</span><span class="s1"> Bitvavo (Krypto)&lt;/h3&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="cash-note"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s2">💰</span><span class="s1"> &lt;strong&gt;Cash bereits enthalten:&lt;/strong&gt; Der Portfoliowert enthält bereits Stablecoin/Euro-Bestände.</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="input-grid"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="input-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;label for="bv_start"&gt;Portfoliowert 01.01. (€)&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="number" id="bv_start" placeholder="0" value="0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="input-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;label for="bv_end"&gt;Portfoliowert heute (€)&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="number" id="bv_end" placeholder="0" value="0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="input-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;label for="bv_inflow"&gt;Kapitalzugänge (€)&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="number" id="bv_inflow" placeholder="0" value="0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="input-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;label for="bv_outflow"&gt;Kapitalabflüsse (€)&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;input type="number" id="bv_outflow" placeholder="0" value="0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="broker-results"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="result-label"&gt;Performance (€):&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="result-value" id="bv_perf_euro"&gt;€ 0,00&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="result-label"&gt;Performance (%):&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="result-value" id="bv_perf_percent"&gt;0,00%&lt;/span&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="chart-container"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;canvas id="chartBitvavo"&gt;&lt;/canvas&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- BUTTONS --&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="button-group"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button class="btn-save" onclick="speichern()"&gt;</span><span class="s2">💾</span><span class="s1"> Lokal speichern&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button class="btn-export" onclick="exportCSV()"&gt;</span><span class="s2">📥</span><span class="s1"> Als CSV exportieren&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button class="btn-reset" onclick="zuruecksetzen()"&gt;</span><span class="s2">🔄</span><span class="s1"> Zurücksetzen&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="footer"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p&gt;Deine Daten werden lokal im Browser gespeichert und können optional zu GitHub synchronisiert werden.&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// CHART INSTANCES</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let chartGesamt = null;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let chartIBKR = null;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let chartBitvavo = null;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// GitHub Konfiguration</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>let gitHubConfig = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>token: localStorage.getItem('gh_token') || '',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>repo: localStorage.getItem('gh_repo') || ''</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// INITIALISIERUNG</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>window.addEventListener('load', function() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>ladenDaten();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>berechnen();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (gitHubConfig.token &amp;&amp; gitHubConfig.repo) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('syncStatus').style.display = 'block';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>updateSyncStatus('Bereit zur Synchronisation', 'synced');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// ALLE INPUT-FELDER ÜBERWACHEN</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.querySelectorAll('input[type="number"]').forEach(input =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>input.addEventListener('change', function() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>berechnen();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>speichern();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (gitHubConfig.token &amp;&amp; gitHubConfig.repo) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>speichernZuGitHub();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>input.addEventListener('input', berechnen);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// GitHub Setup</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function toggleGitHubSetup() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const setup = document.getElementById('githubSetup');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>setup.classList.toggle('active');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function setupGitHub() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const token = document.getElementById('githubToken').value;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const repo = document.getElementById('githubRepo').value;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (!token || !repo) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>alert('Bitte fülle beide Felder aus!');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gitHubConfig.token = token;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>gitHubConfig.repo = repo;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>localStorage.setItem('gh_token', token);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>localStorage.setItem('gh_repo', repo);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('syncStatus').style.display = 'block';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>updateSyncStatus('GitHub verbunden!', 'synced');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('githubSetup').classList.remove('active');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Test der Verbindung</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>testGitHubConnection();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function testGitHubConnection() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>updateSyncStatus('Verbindung wird getestet...', 'syncing');</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const headers = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'Authorization': `token ${gitHubConfig.token}`,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>'Accept': 'application/vnd.github.v3+json'</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const [owner, repo] = gitHubConfig.repo.split('/');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>fetch(`https://api.github.com/repos/${owner}/${repo}`, { headers })</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>.then(response =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (response.ok) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>updateSyncStatus('</span><span class="s2">✅</span><span class="s1"> GitHub verbunden!', 'synced');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>speichernZuGitHub();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>updateSyncStatus('</span><span class="s2">❌</span><span class="s1"> Verbindung fehlgeschlagen. Token/Repo korrekt?', 'error');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>})</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>.catch(err =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>updateSyncStatus('</span><span class="s2">❌</span><span class="s1"> Fehler bei der Verbindung: ' + err.message, 'error');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function updateSyncStatus(message, status) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const statusDiv = document.getElementById('syncStatus');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>statusDiv.textContent = message;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>statusDiv.className = 'sync-status ' + status;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// DATEN SPEICHERN (lokal)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function speichern() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const daten = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>tr: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>securities_start: parseFloat(document.getElementById('tr_securities_start').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>securities_today: parseFloat(document.getElementById('tr_securities_today').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>cash_today: parseFloat(document.getElementById('tr_cash_today').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>inflow: parseFloat(document.getElementById('tr_inflow').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>outflow: parseFloat(document.getElementById('tr_outflow').value) || 0</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>ibkr: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>start: parseFloat(document.getElementById('ibkr_start').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>end: parseFloat(document.getElementById('ibkr_end').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>inflow: parseFloat(document.getElementById('ibkr_inflow').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>outflow: parseFloat(document.getElementById('ibkr_outflow').value) || 0</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>bv: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>start: parseFloat(document.getElementById('bv_start').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>end: parseFloat(document.getElementById('bv_end').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>inflow: parseFloat(document.getElementById('bv_inflow').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>outflow: parseFloat(document.getElementById('bv_outflow').value) || 0</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>localStorage.setItem('portfolioDaten', JSON.stringify(daten));</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// DATEN ZU GITHUB SPEICHERN</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function speichernZuGitHub() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (!gitHubConfig.token || !gitHubConfig.repo) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>return;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const daten = {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>tr: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>securities_start: parseFloat(document.getElementById('tr_securities_start').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>securities_today: parseFloat(document.getElementById('tr_securities_today').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>cash_today: parseFloat(document.getElementById('tr_cash_today').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>inflow: parseFloat(document.getElementById('tr_inflow').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>outflow: parseFloat(document.getElementById('tr_outflow').value) || 0</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>ibkr: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>start: parseFloat(document.getElementById('ibkr_start').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>end: parseFloat(document.getElementById('ibkr_end').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>inflow: parseFloat(document.getElementById('ibkr_inflow').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>outflow: parseFloat(document.getElementById('ibkr_outflow').value) || 0</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>bv: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>start: parseFloat(document.getElementById('bv_start').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>end: parseFloat(document.getElementById('bv_end').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>inflow: parseFloat(document.getElementById('bv_inflow').value) || 0,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>outflow: parseFloat(document.getElementById('bv_outflow').value) || 0</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>lastUpdated: new Date().toISOString()</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>};</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const content = JSON.stringify(daten, null, 2);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const encodedContent = btoa(unescape(encodeURIComponent(content)));</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const [owner, repo] = gitHubConfig.repo.split('/');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Erst den aktuellen SHA abrufen</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>fetch(`https://api.github.com/repos/${owner}/${repo}/contents/portfolio-data.json`, {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>headers: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>'Authorization': `token ${gitHubConfig.token}`,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>'Accept': 'application/vnd.github.v3+json'</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>})</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>.then(response =&gt; response.json())</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>.then(data =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const sha = data.sha || '';</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Datei aktualisieren/erstellen</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>return fetch(`https://api.github.com/repos/${owner}/${repo}/contents/portfolio-data.json`, {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>method: 'PUT',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>headers: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>'Authorization': `token ${gitHubConfig.token}`,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>'Accept': 'application/vnd.github.v3+json',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>'Content-Type': 'application/json'</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>body: JSON.stringify({</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>message: 'Portfolio update: ' + new Date().toLocaleString('de-DE'),</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>content: encodedContent,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>sha: sha</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>})</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>})</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>.then(response =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (response.ok) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>updateSyncStatus('</span><span class="s2">✅</span><span class="s1"> Zu GitHub synchronisiert', 'synced');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>} else {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>updateSyncStatus('</span><span class="s2">⚠️</span><span class="s1"> Sync-Fehler. Lokal gespeichert.', 'error');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>})</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>.catch(err =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>console.error('GitHub Sync Fehler:', err);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>updateSyncStatus('</span><span class="s2">⚠️</span><span class="s1"> Offline - Lokal gespeichert', 'error');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// DATEN LADEN (zuerst lokal, dann von GitHub)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function ladenDaten() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Zuerst lokal laden</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const gespeichert = localStorage.getItem('portfolioDaten');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (gespeichert) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const daten = JSON.parse(gespeichert);</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">                </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('tr_securities_start').value = daten.tr.securities_start || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('tr_securities_today').value = daten.tr.securities_today || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('tr_cash_today').value = daten.tr.cash_today || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('tr_inflow').value = daten.tr.inflow || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('tr_outflow').value = daten.tr.outflow || 0;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('ibkr_start').value = daten.ibkr.start || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('ibkr_end').value = daten.ibkr.end || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('ibkr_inflow').value = daten.ibkr.inflow || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('ibkr_outflow').value = daten.ibkr.outflow || 0;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('bv_start').value = daten.bv.start || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('bv_end').value = daten.bv.end || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('bv_inflow').value = daten.bv.inflow || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('bv_outflow').value = daten.bv.outflow || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Dann versuchen von GitHub zu laden (wenn konfiguriert)</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (gitHubConfig.token &amp;&amp; gitHubConfig.repo) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>ladenDatenVonGitHub();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function ladenDatenVonGitHub() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const [owner, repo] = gitHubConfig.repo.split('/');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>fetch(`https://api.github.com/repos/${owner}/${repo}/contents/portfolio-data.json`, {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>headers: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>'Authorization': `token ${gitHubConfig.token}`,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>'Accept': 'application/vnd.github.v3.raw'</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>})</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>.then(response =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (response.ok) return response.json();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>throw new Error('Datei nicht gefunden');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>})</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>.then(daten =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('tr_securities_start').value = daten.tr.securities_start || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('tr_securities_today').value = daten.tr.securities_today || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('tr_cash_today').value = daten.tr.cash_today || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('tr_inflow').value = daten.tr.inflow || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('tr_outflow').value = daten.tr.outflow || 0;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('ibkr_start').value = daten.ibkr.start || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('ibkr_end').value = daten.ibkr.end || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('ibkr_inflow').value = daten.ibkr.inflow || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('ibkr_outflow').value = daten.ibkr.outflow || 0;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('bv_start').value = daten.bv.start || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('bv_end').value = daten.bv.end || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('bv_inflow').value = daten.bv.inflow || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.getElementById('bv_outflow').value = daten.bv.outflow || 0;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>berechnen();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>updateSyncStatus('</span><span class="s2">✅</span><span class="s1"> Von GitHub geladen', 'synced');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>})</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>.catch(err =&gt; {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>// Fehler ignorieren, lokale Daten verwenden</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>console.log('GitHub Daten nicht verfügbar, verwende lokale Daten');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// BERECHNUNG UND ANZEIGE</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function berechnen() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Trade Republic</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_securities_start = parseFloat(document.getElementById('tr_securities_start').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_securities_today = parseFloat(document.getElementById('tr_securities_today').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_cash_today = parseFloat(document.getElementById('tr_cash_today').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_inflow = parseFloat(document.getElementById('tr_inflow').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_outflow = parseFloat(document.getElementById('tr_outflow').value) || 0;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_cash_start = tr_cash_today - tr_inflow + tr_outflow;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_start_capital = tr_securities_start + tr_cash_start;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_total_today = tr_securities_today + tr_cash_today;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_perf_euro = tr_total_today - tr_start_capital - tr_inflow + tr_outflow;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_perf_percent = tr_start_capital + tr_inflow &gt; 0 ? (tr_perf_euro / (tr_start_capital + tr_inflow)) * 100 : 0;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// IBKR</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const ibkr_start = parseFloat(document.getElementById('ibkr_start').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const ibkr_end = parseFloat(document.getElementById('ibkr_end').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const ibkr_inflow = parseFloat(document.getElementById('ibkr_inflow').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const ibkr_outflow = parseFloat(document.getElementById('ibkr_outflow').value) || 0;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const ibkr_perf_euro = ibkr_end - ibkr_start - ibkr_inflow + ibkr_outflow;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const ibkr_perf_percent = ibkr_start + ibkr_inflow &gt; 0 ? (ibkr_perf_euro / (ibkr_start + ibkr_inflow)) * 100 : 0;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// Bitvavo</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const bv_start = parseFloat(document.getElementById('bv_start').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const bv_end = parseFloat(document.getElementById('bv_end').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const bv_inflow = parseFloat(document.getElementById('bv_inflow').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const bv_outflow = parseFloat(document.getElementById('bv_outflow').value) || 0;</span></p>
+<p class="p2"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const bv_perf_euro = bv_end - bv_start - bv_inflow + bv_outflow;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const bv_perf_percent = bv_start + bv_inflow &gt; 0 ? (bv_perf_euro / (bv_start + bv_inflow)) * 100 : 0;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// ANZEIGE TRADE REPUBLIC</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('tr_start_capital').textContent = formatCurrency(tr_start_capital);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('tr_total_today').textContent = formatCurrency(tr_total_today);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>displayBrokerPerf('tr', tr_perf_euro, tr_perf_percent);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// ANZEIGE IBKR</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>displayBrokerPerf('ibkr', ibkr_perf_euro, ibkr_perf_percent);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// ANZEIGE BITVAVO</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>displayBrokerPerf('bv', bv_perf_euro, bv_perf_percent);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// GESAMTÜBERSICHT</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const totalStart = tr_start_capital + ibkr_start + bv_start;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const totalEnd = tr_total_today + ibkr_end + bv_end;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const totalInflow = tr_inflow + ibkr_inflow + bv_inflow;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const totalOutflow = tr_outflow + ibkr_outflow + bv_outflow;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const totalPerf_euro = totalEnd - totalStart - totalInflow + totalOutflow;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const totalPerf_percent = totalStart + totalInflow &gt; 0 ? (totalPerf_euro / (totalStart + totalInflow)) * 100 : 0;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('totalStart').textContent = formatCurrency(totalStart);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('totalEnd').textContent = formatCurrency(totalEnd);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('totalInflows').textContent = formatCurrency(totalInflow);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('totalOutflows').textContent = formatCurrency(totalOutflow);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('totalPerformanceEuro').textContent = formatCurrency(totalPerf_euro);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('totalPerformanceEuro').className = 'stat-value ' + (totalPerf_euro &gt;= 0 ? 'positive' : 'negative');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('totalPerformancePercent').textContent = formatPercent(totalPerf_percent);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById('totalPerformancePercent').className = 'stat-value ' + (totalPerf_percent &gt;= 0 ? 'positive' : 'negative');</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>// DIAGRAMME</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>updateChartsGesamt(totalStart, totalEnd, totalPerf_euro, totalInflow);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>updateChartBroker('chartIBKR', ibkr_start, ibkr_end, ibkr_inflow, ibkr_outflow, ibkr_perf_euro);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>updateChartBroker('chartBitvavo', bv_start, bv_end, bv_inflow, bv_outflow, bv_perf_euro);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// HILFSFUNKTION: PERFORMANCE ANZEIGEN</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function displayBrokerPerf(id, perf_euro, perf_percent) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(id + '_perf_euro').textContent = formatCurrency(perf_euro);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(id + '_perf_euro').className = 'result-value ' + (perf_euro &gt;= 0 ? 'positive' : 'negative');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(id + '_perf_percent').textContent = formatPercent(perf_percent);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>document.getElementById(id + '_perf_percent').className = 'result-value ' + (perf_percent &gt;= 0 ? 'positive' : 'negative');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// DIAGRAMM: GESAMTÜBERSICHT</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function updateChartsGesamt(totalStart, totalEnd, totalPerf_euro, totalInflow) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const ctx = document.getElementById('chartGesamt');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (!ctx) return;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (chartGesamt) chartGesamt.destroy();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>chartGesamt = new Chart(ctx, {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>type: 'doughnut',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>data: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>labels: ['Startkapital', 'Zugänge', 'Performance'],</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>datasets: [{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>data: [totalStart, totalInflow, totalPerf_euro],</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>backgroundColor: ['#667eea', '#764ba2', totalPerf_euro &gt;= 0 ? '#4CAF50' : '#ff6b6b'],</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>borderColor: '#fff',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>borderWidth: 2</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}]</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>options: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>responsive: true,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>maintainAspectRatio: false,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>plugins: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>legend: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>position: 'bottom'</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// DIAGRAMM: EINZELNE BROKER</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function updateChartBroker(canvasId, start_value, end_value, inflow, outflow, perf_euro) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const ctx = document.getElementById(canvasId);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (!ctx) return;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const oldChart = canvasId === 'chartIBKR' ? chartIBKR : chartBitvavo;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (oldChart) oldChart.destroy();</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const newChart = new Chart(ctx, {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>type: 'bar',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>data: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>labels: ['Start 01.01.', 'Zugänge', 'Abflüsse', 'Performance', 'Heute'],</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>datasets: [{</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>label: 'Wert (€)',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>data: [start_value, inflow, -outflow, perf_euro, end_value],</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>backgroundColor: [</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>'#667eea',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>'#4CAF50',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>'#ff9800',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>perf_euro &gt;= 0 ? '#4CAF50' : '#ff6b6b',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>'#764ba2'</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>],</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>borderColor: '#fff',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>borderWidth: 1</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}]</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>options: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>responsive: true,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>maintainAspectRatio: false,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>indexAxis: 'x',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>plugins: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>legend: { display: true }</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>},</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>scales: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>y: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>beginAtZero: true,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>ticks: {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                </span>callback: function(value) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                    </span>return '€ ' + value.toLocaleString('de-DE', {maximumFractionDigits: 0});</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (canvasId === 'chartIBKR') chartIBKR = newChart;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>else chartBitvavo = newChart;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// FORMATIERUNG</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function formatCurrency(value) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>return new Intl.NumberFormat('de-DE', {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>style: 'currency',</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>currency: 'EUR'</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}).format(value);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function formatPercent(value) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>return value.toLocaleString('de-DE', {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>minimumFractionDigits: 2,</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>maximumFractionDigits: 2</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}) + '%';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// CSV EXPORT</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function exportCSV() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_securities_start = parseFloat(document.getElementById('tr_securities_start').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_securities_today = parseFloat(document.getElementById('tr_securities_today').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_cash_today = parseFloat(document.getElementById('tr_cash_today').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_inflow = parseFloat(document.getElementById('tr_inflow').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_outflow = parseFloat(document.getElementById('tr_outflow').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_cash_start = tr_cash_today - tr_inflow + tr_outflow;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_start = tr_securities_start + tr_cash_start;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_total_today = tr_securities_today + tr_cash_today;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const ibkr_start = parseFloat(document.getElementById('ibkr_start').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const ibkr_end = parseFloat(document.getElementById('ibkr_end').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const ibkr_inflow = parseFloat(document.getElementById('ibkr_inflow').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const ibkr_outflow = parseFloat(document.getElementById('ibkr_outflow').value) || 0;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const bv_start = parseFloat(document.getElementById('bv_start').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const bv_end = parseFloat(document.getElementById('bv_end').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const bv_inflow = parseFloat(document.getElementById('bv_inflow').value) || 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const bv_outflow = parseFloat(document.getElementById('bv_outflow').value) || 0;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>function calcPerf(start, end, inflow, outflow) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const perf_euro = end - start - inflow + outflow;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>const perf_percent = start + inflow &gt; 0 ? ((perf_euro / (start + inflow)) * 100).toFixed(2) : 0;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>return { euro: perf_euro.toFixed(2), percent: perf_percent };</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const tr_perf = calcPerf(tr_start, tr_total_today, tr_inflow, tr_outflow);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const ibkr_perf = calcPerf(ibkr_start, ibkr_end, ibkr_inflow, ibkr_outflow);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const bv_perf = calcPerf(bv_start, bv_end, bv_inflow, bv_outflow);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const total_start = tr_start + ibkr_start + bv_start;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const total_end = tr_total_today + ibkr_end + bv_end;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const total_inflow = tr_inflow + ibkr_inflow + bv_inflow;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const total_outflow = tr_outflow + ibkr_outflow + bv_outflow;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const total_perf = calcPerf(total_start, total_end, total_inflow, total_outflow);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const csv = `Broker;Startwert 01.01;Wert heute;Zugänge;Abflüsse;Performance (€);Performance (%)</span></p>
+<p class="p1"><span class="s1">Trade Republic;${tr_start.toFixed(2)};${tr_total_today.toFixed(2)};${tr_inflow.toFixed(2)};${tr_outflow.toFixed(2)};${tr_perf.euro};${tr_perf.percent}</span></p>
+<p class="p1"><span class="s1">Interactive Brokers;${ibkr_start.toFixed(2)};${ibkr_end.toFixed(2)};${ibkr_inflow.toFixed(2)};${ibkr_outflow.toFixed(2)};${ibkr_perf.euro};${ibkr_perf.percent}</span></p>
+<p class="p1"><span class="s1">Bitvavo;${bv_start.toFixed(2)};${bv_end.toFixed(2)};${bv_inflow.toFixed(2)};${bv_outflow.toFixed(2)};${bv_perf.euro};${bv_perf.percent}</span></p>
+<p class="p1"><span class="s1">GESAMT;${total_start.toFixed(2)};${total_end.toFixed(2)};${total_inflow.toFixed(2)};${total_outflow.toFixed(2)};${total_perf.euro};${total_perf.percent}`;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const link = document.createElement('a');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>link.href = URL.createObjectURL(blob);</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>link.download = 'Portfolio_Performance_' + new Date().toISOString().split('T')[0] + '.csv';</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>link.click();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>// ZURÜCKSETZEN</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function zuruecksetzen() {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (confirm('Sollen wirklich ALLE Daten gelöscht werden? Dies kann nicht rückgängig gemacht werden!')) {</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>localStorage.removeItem('portfolioDaten');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>document.querySelectorAll('input[type="number"]').forEach(input =&gt; input.value = '0');</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>berechnen();</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
