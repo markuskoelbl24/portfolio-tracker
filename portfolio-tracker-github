@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Performance Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); padding: 30px; }
+        h1 { color: #333; margin-bottom: 30px; text-align: center; border-bottom: 3px solid #667eea; padding-bottom: 15px; }
+        h2 { color: #667eea; margin-top: 30px; margin-bottom: 15px; font-size: 1.5em; }
+        .gesamtubersicht { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 10px; margin-bottom: 30px; }
+        .gesamtubersicht h2 { color: white; margin-top: 0; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 20px; }
+        .stat-card { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; backdrop-filter: blur(10px); }
+        .stat-label { font-size: 0.9em; opacity: 0.9; margin-bottom: 5px; }
+        .stat-value { font-size: 1.8em; font-weight: bold; }
+        .stat-value.positive { color: #4CAF50; }
+        .stat-value.negative { color: #ff6b6b; }
+        .broker-section { background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 25px; border-left: 5px solid #667eea; }
+        .broker-section h3 { color: #333; margin-bottom: 15px; }
+        .cash-note { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px; margin-bottom: 15px; border-radius: 4px; font-size: 0.9em; color: #856404; }
+        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px; }
+        .input-group { display: flex; flex-direction: column; }
+        label { font-weight: 600; color: #555; margin-bottom: 5px; font-size: 0.95em; }
+        input[type="number"] { padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 1em; transition: border-color 0.3s; }
+        input[type="number"]:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
+        .broker-results { background: white; padding: 15px; border-radius: 8px; margin-top: 15px; }
+        .result-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
+        .result-item:last-child { border-bottom: none; }
+        .result-label { color: #666; font-weight: 600; }
+        .result-value { font-weight: bold; color: #333; }
+        .result-value.positive { color: #4CAF50; }
+        .result-value.negative { color: #ff6b6b; }
+        .chart-container { position: relative; height: 300px; margin: 30px 0; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .button-group { display: flex; gap: 10px; margin-top: 30px; flex-wrap: wrap; justify-content: center; }
+        button { padding: 12px 25px; font-size: 1em; border: none; border-radius: 6px; cursor: pointer; transition: all 0.3s; font-weight: 600; }
+        .btn-export { background: #4CAF50; color: white; }
+        .btn-export:hover { background: #45a049; transform: translateY(-2px); }
+        .btn-reset { background: #ff6b6b; color: white; }
+        .btn-reset:hover { background: #ff5252; transform: translateY(-2px); }
+        .btn-save { background: #667eea; color: white; }
+        .btn-save:hover { background: #5568d3; transform: translateY(-2px); }
+        .btn-github-setup { background: #24292e; color: white; }
+        .btn-github-setup:hover { background: #1f1f23; transform: translateY(-2px); }
+        .info-box { background: #e3f2fd; border-left: 4px solid #2196F3; padding: 15px; border-radius: 6px; margin-bottom: 20px; color: #1565c0; }
+        .github-setup { background: #f0f7ff; border: 2px solid #2196F3; padding: 20px; border-radius: 10px; margin-bottom: 20px; display: none; }
+        .github-setup.active { display: block; }
+        .github-setup input { width: 100%; padding: 10px; margin: 10px 0; border: 2px solid #ddd; border-radius: 6px; font-size: 0.9em; }
+        .github-setup label { display: block; margin-top: 15px; font-weight: 600; }
+        .sync-status { padding: 10px; border-radius: 6px; margin-bottom: 15px; text-align: center; font-weight: 600; }
+        .sync-status.synced { background: #d4edda; color: #155724; }
+        .sync-status.syncing { background: #fff3cd; color: #856404; }
+        .sync-status.error { background: #f8d7da; color: #721c24; }
+        .footer { text-align: center; margin-top: 30px; color: #999; font-size: 0.9em; }
+        @media (max-width: 768px) { .container { padding: 15px; } .stats-grid { grid-template-columns: 1fr; } .input-grid { grid-template-columns: 1fr; } h1 { font-size: 1.5em; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>&#128202; Portfolio Performance Tracker</h1>
+    <div class="info-box">&#128161; Tipp: Deine Daten werden automatisch gespeichert. Du kannst die Seite schliessen und später weitermachen.</div>
+
+    <div class="github-setup" id="githubSetup">
+        <h3>&#9881;&#65039; GitHub-Synchronisation einrichten</h3>
+        <label for="githubToken">GitHub Token (ghp_...):</label>
+        <input type="password" id="githubToken" placeholder="Dein GitHub Token hier einfuegen">
+        <label for="githubRepo">GitHub Username/Repo (z.B. dein-name/portfolio-tracker):</label>
+        <input type="text" id="githubRepo" placeholder="dein-name/portfolio-tracker">
+        <button class="btn-save" onclick="setupGitHub()" style="width:100%;margin-top:15px;">&#9989; GitHub verbinden</button>
+    </div>
+
+    <div class="sync-status" id="syncStatus" style="display:none;"></div>
+    <button class="btn-github-setup" onclick="toggleGitHubSetup()" style="width:100%;margin-bottom:20px;">&#9881;&#65039; GitHub-Sync einrichten</button>
+
+    <div class="gesamtubersicht">
+        <h2>&#128200; Gesamtuebersicht Alle Broker</h2>
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-label">Startkapital (01.01.)</div><div class="stat-value" id="totalStart">&#8364; 0,00</div></div>
+            <div class="stat-card"><div class="stat-label">Aktueller Wert</div><div class="stat-value" id="totalEnd">&#8364; 0,00</div></div>
+            <div class="stat-card"><div class="stat-label">Kapitalzugaenge</div><div class="stat-value" id="totalInflows">&#8364; 0,00</div></div>
+            <div class="stat-card"><div class="stat-label">Kapitalabfluesse</div><div class="stat-value" id="totalOutflows">&#8364; 0,00</div></div>
+            <div class="stat-card"><div class="stat-label">Performance (&#8364;)</div><div class="stat-value" id="totalPerformanceEuro">&#8364; 0,00</div></div>
+            <div class="stat-card"><div class="stat-label">Performance (%)</div><div class="stat-value" id="totalPerformancePercent">0,00%</div></div>
+        </div>
+        <div class="chart-container"><canvas id="chartGesamt"></canvas></div>
+    </div>
+
+    <div class="broker-section">
+        <h3>&#127970; Trade Republic</h3>
+        <div class="cash-note">&#128176; <strong>Cash-Position:</strong> Cash wird als Portfolio-Position behandelt. Das Cash von 01.01. wird automatisch berechnet.</div>
+        <div class="input-grid">
+            <div class="input-group"><label for="tr_securities_start">Wertpapiere am 01.01. (&#8364;)</label><input type="number" id="tr_securities_start" value="0"></div>
+            <div class="input-group"><label for="tr_securities_today">Wertpapiere heute (&#8364;)</label><input type="number" id="tr_securities_today" value="0"></div>
+            <div class="input-group"><label for="tr_cash_today">Cash heute (&#8364;)</label><input type="number" id="tr_cash_today" value="0"></div>
+            <div class="input-group"><label for="tr_inflow">Kapitalzugaenge (&#8364;)</label><input type="number" id="tr_inflow" value="0"></div>
+            <div class="input-group"><label for="tr_outflow">Kapitalabfluesse (&#8364;)</label><input type="number" id="tr_outflow" value="0"></div>
+        </div>
+        <div class="broker-results">
+            <div class="result-item"><span class="result-label">Startkapital 01.01.:</span><span class="result-value" id="tr_start_capital">&#8364; 0,00</span></div>
+            <div class="result-item"><span class="result-label">Gesamtportfolio heute:</span><span class="result-value" id="tr_total_today">&#8364; 0,00</span></div>
+            <div class="result-item"><span class="result-label">Performance (&#8364;):</span><span class="result-value" id="tr_perf_euro">&#8364; 0,00</span></div>
+            <div class="result-item"><span class="result-label">Performance (%):</span><span class="result-value" id="tr_perf_percent">0,00%</span></div>
+        </div>
+    </div>
+
+    <div class="broker-section">
+        <h3>&#127970; Interactive Brokers (IBKR)</h3>
+        <div class="cash-note">&#128176; <strong>Cash bereits enthalten:</strong> Der Netto-Liquidierungswert enthaelt bereits die Cash-Position.</div>
+        <div class="input-grid">
+            <div class="input-group"><label for="ibkr_start">Netto-Liquidierungswert 01.01. (&#8364;)</label><input type="number" id="ibkr_start" value="0"></div>
+            <div class="input-group"><label for="ibkr_end">Netto-Liquidierungswert heute (&#8364;)</label><input type="number" id="ibkr_end" value="0"></div>
+            <div class="input-group"><label for="ibkr_inflow">Kapitalzugaenge (&#8364;)</label><input type="number" id="ibkr_inflow" value="0"></div>
+            <div class="input-group"><label for="ibkr_outflow">Kapitalabfluesse (&#8364;)</label><input type="number" id="ibkr_outflow" value="0"></div>
+        </div>
+        <div class="broker-results">
+            <div class="result-item"><span class="result-label">Performance (&#8364;):</span><span class="result-value" id="ibkr_perf_euro">&#8364; 0,00</span></div>
+            <div class="result-item"><span class="result-label">Performance (%):</span><span class="result-value" id="ibkr_perf_percent">0,00%</span></div>
+        </div>
+        <div class="chart-container"><canvas id="chartIBKR"></canvas></div>
+    </div>
+
+    <div class="broker-section">
+        <h3>&#127970; Bitvavo (Krypto)</h3>
+        <div class="cash-note">&#128176; <strong>Cash bereits enthalten:</strong> Der Portfoliowert enthaelt bereits Stablecoin/Euro-Bestaende.</div>
+        <div class="input-grid">
+            <div class="input-group"><label for="bv_start">Portfoliowert 01.01. (&#8364;)</label><input type="number" id="bv_start" value="0"></div>
+            <div class="input-group"><label for="bv_end">Portfoliowert heute (&#8364;)</label><input type="number" id="bv_end" value="0"></div>
+            <div class="input-group"><label for="bv_inflow">Kapitalzugaenge (&#8364;)</label><input type="number" id="bv_inflow" value="0"></div>
+            <div class="input-group"><label for="bv_outflow">Kapitalabfluesse (&#8364;)</label><input type="number" id="bv_outflow" value="0"></div>
+        </div>
+        <div class="broker-results">
+            <div class="result-item"><span class="result-label">Performance (&#8364;):</span><span class="result-value" id="bv_perf_euro">&#8364; 0,00</span></div>
+            <div class="result-item"><span class="result-label">Performance (%):</span><span class="result-value" id="bv_perf_percent">0,00%</span></div>
+        </div>
+        <div class="chart-container"><canvas id="chartBitvavo"></canvas></div>
+    </div>
+
+    <div class="button-group">
+        <button class="btn-save" onclick="speichern()">&#128190; Lokal speichern</button>
+        <button class="btn-export" onclick="exportCSV()">&#128229; Als CSV exportieren</button>
+        <button class="btn-reset" onclick="zuruecksetzen()">&#128260; Zuruecksetzen</button>
+    </div>
+    <div class="footer"><p>Deine Daten werden lokal im Browser gespeichert und koennen optional zu GitHub synchronisiert werden.</p></div>
+</div>
+
+<script>
+let chartGesamt=null,chartIBKR=null,chartBitvavo=null;
+let gitHubConfig={token:localStorage.getItem('gh_token')||'',repo:localStorage.getItem('gh_repo')||''};
+
+window.addEventListener('load',function(){ladenDaten();berechnen();if(gitHubConfig.token&&gitHubConfig.repo){document.getElementById('syncStatus').style.display='block';updateSyncStatus('Bereit zur Synchronisation','synced');}});
+
+document.querySelectorAll('input[type="number"]').forEach(input=>{input.addEventListener('change',function(){berechnen();speichern();if(gitHubConfig.token&&gitHubConfig.repo){speichernZuGitHub();}});input.addEventListener('input',berechnen);});
+
+function toggleGitHubSetup(){document.getElementById('githubSetup').classList.toggle('active');}
+
+function setupGitHub(){
+    const token=document.getElementById('githubToken').value;
+    const repo=document.getElementById('githubRepo').value;
+    if(!token||!repo){alert('Bitte fuelle beide Felder aus!');return;}
+    gitHubConfig.token=token;gitHubConfig.repo=repo;
+    localStorage.setItem('gh_token',token);localStorage.setItem('gh_repo',repo);
+    document.getElementById('syncStatus').style.display='block';
+    updateSyncStatus('GitHub verbunden!','synced');
+    document.getElementById('githubSetup').classList.remove('active');
+    testGitHubConnection();
+}
+
+function testGitHubConnection(){
+    updateSyncStatus('Verbindung wird getestet...','syncing');
+    const [owner,repo]=gitHubConfig.repo.split('/');
+    fetch('https://api.github.com/repos/'+owner+'/'+repo,{headers:{'Authorization':'token '+gitHubConfig.token,'Accept':'application/vnd.github.v3+json'}})
+    .then(r=>{if(r.ok){updateSyncStatus('GitHub verbunden!','synced');speichernZuGitHub();}else{updateSyncStatus('Verbindung fehlgeschlagen. Token/Repo korrekt?','error');}})
+    .catch(err=>{updateSyncStatus('Fehler: '+err.message,'error');});
+}
+
+function updateSyncStatus(msg,status){const d=document.getElementById('syncStatus');d.textContent=msg;d.className='sync-status '+status;}
+
+function getDaten(){
+    return {
+        tr:{securities_start:parseFloat(document.getElementById('tr_securities_start').value)||0,securities_today:parseFloat(document.getElementById('tr_securities_today').value)||0,cash_today:parseFloat(document.getElementById('tr_cash_today').value)||0,inflow:parseFloat(document.getElementById('tr_inflow').value)||0,outflow:parseFloat(document.getElementById('tr_outflow').value)||0},
+        ibkr:{start:parseFloat(document.getElementById('ibkr_start').value)||0,end:parseFloat(document.getElementById('ibkr_end').value)||0,inflow:parseFloat(document.getElementById('ibkr_inflow').value)||0,outflow:parseFloat(document.getElementById('ibkr_outflow').value)||0},
+        bv:{start:parseFloat(document.getElementById('bv_start').value)||0,end:parseFloat(document.getElementById('bv_end').value)||0,inflow:parseFloat(document.getElementById('bv_inflow').value)||0,outflow:parseFloat(document.getElementById('bv_outflow').value)||0}
+    };
+}
+
+function speichern(){localStorage.setItem('portfolioDaten',JSON.stringify(getDaten()));}
+
+function speichernZuGitHub(){
+    if(!gitHubConfig.token||!gitHubConfig.repo)return;
+    const daten={...getDaten(),lastUpdated:new Date().toISOString()};
+    const content=JSON.stringify(daten,null,2);
+    const encodedContent=btoa(unescape(encodeURIComponent(content)));
+    const [owner,repo]=gitHubConfig.repo.split('/');
+    fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/portfolio-data.json',{headers:{'Authorization':'token '+gitHubConfig.token,'Accept':'application/vnd.github.v3+json'}})
+    .then(r=>r.json())
+    .then(data=>{
+        return fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/portfolio-data.json',{method:'PUT',headers:{'Authorization':'token '+gitHubConfig.token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify({message:'Portfolio update: '+new Date().toLocaleString('de-DE'),content:encodedContent,sha:data.sha||''})});
+    })
+    .then(r=>{if(r.ok){updateSyncStatus('Zu GitHub synchronisiert','synced');}else{updateSyncStatus('Sync-Fehler. Lokal gespeichert.','error');}})
+    .catch(err=>{updateSyncStatus('Offline - Lokal gespeichert','error');});
+}
+
+function ladenDaten(){
+    const gespeichert=localStorage.getItem('portfolioDaten');
+    if(gespeichert){
+        const d=JSON.parse(gespeichert);
+        document.getElementById('tr_securities_start').value=d.tr.securities_start||0;
+        document.getElementById('tr_securities_today').value=d.tr.securities_today||0;
+        document.getElementById('tr_cash_today').value=d.tr.cash_today||0;
+        document.getElementById('tr_inflow').value=d.tr.inflow||0;
+        document.getElementById('tr_outflow').value=d.tr.outflow||0;
+        document.getElementById('ibkr_start').value=d.ibkr.start||0;
+        document.getElementById('ibkr_end').value=d.ibkr.end||0;
+        document.getElementById('ibkr_inflow').value=d.ibkr.inflow||0;
+        document.getElementById('ibkr_outflow').value=d.ibkr.outflow||0;
+        document.getElementById('bv_start').value=d.bv.start||0;
+        document.getElementById('bv_end').value=d.bv.end||0;
+        document.getElementById('bv_inflow').value=d.bv.inflow||0;
+        document.getElementById('bv_outflow').value=d.bv.outflow||0;
+    }
+    if(gitHubConfig.token&&gitHubConfig.repo)ladenDatenVonGitHub();
+}
+
+function ladenDatenVonGitHub(){
+    const [owner,repo]=gitHubConfig.repo.split('/');
+    fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/portfolio-data.json',{headers:{'Authorization':'token '+gitHubConfig.token,'Accept':'application/vnd.github.v3.raw'}})
+    .then(r=>{if(r.ok)return r.json();throw new Error('nicht gefunden');})
+    .then(d=>{
+        document.getElementById('tr_securities_start').value=d.tr.securities_start||0;
+        document.getElementById('tr_securities_today').value=d.tr.securities_today||0;
+        document.getElementById('tr_cash_today').value=d.tr.cash_today||0;
+        document.getElementById('tr_inflow').value=d.tr.inflow||0;
+        document.getElementById('tr_outflow').value=d.tr.outflow||0;
+        document.getElementById('ibkr_start').value=d.ibkr.start||0;
+        document.getElementById('ibkr_end').value=d.ibkr.end||0;
+        document.getElementById('ibkr_inflow').value=d.ibkr.inflow||0;
+        document.getElementById('ibkr_outflow').value=d.ibkr.outflow||0;
+        document.getElementById('bv_start').value=d.bv.start||0;
+        document.getElementById('bv_end').value=d.bv.end||0;
+        document.getElementById('bv_inflow').value=d.bv.inflow||0;
+        document.getElementById('bv_outflow').value=d.bv.outflow||0;
+        berechnen();updateSyncStatus('Von GitHub geladen','synced');
+    })
+    .catch(()=>{console.log('GitHub nicht verfuegbar, lokale Daten werden verwendet');});
+}
+
+function berechnen(){
+    const tr_ss=parseFloat(document.getElementById('tr_securities_start').value)||0;
+    const tr_st=parseFloat(document.getElementById('tr_securities_today').value)||0;
+    const tr_ct=parseFloat(document.getElementById('tr_cash_today').value)||0;
+    const tr_in=parseFloat(document.getElementById('tr_inflow').value)||0;
+    const tr_out=parseFloat(document.getElementById('tr_outflow').value)||0;
+    const tr_cs=tr_ct-tr_in+tr_out;
+    const tr_start=tr_ss+tr_cs;
+    const tr_today=tr_st+tr_ct;
+    const tr_pe=tr_today-tr_start-tr_in+tr_out;
+    const tr_pp=tr_start+tr_in>0?(tr_pe/(tr_start+tr_in))*100:0;
+
+    const ib_s=parseFloat(document.getElementById('ibkr_start').value)||0;
+    const ib_e=parseFloat(document.getElementById('ibkr_end').value)||0;
+    const ib_in=parseFloat(document.getElementById('ibkr_inflow').value)||0;
+    const ib_out=parseFloat(document.getElementById('ibkr_outflow').value)||0;
+    const ib_pe=ib_e-ib_s-ib_in+ib_out;
+    const ib_pp=ib_s+ib_in>0?(ib_pe/(ib_s+ib_in))*100:0;
+
+    const bv_s=parseFloat(document.getElementById('bv_start').value)||0;
+    const bv_e=parseFloat(document.getElementById('bv_end').value)||0;
+    const bv_in=parseFloat(document.getElementById('bv_inflow').value)||0;
+    const bv_out=parseFloat(document.getElementById('bv_outflow').value)||0;
+    const bv_pe=bv_e-bv_s-bv_in+bv_out;
+    const bv_pp=bv_s+bv_in>0?(bv_pe/(bv_s+bv_in))*100:0;
+
+    document.getElementById('tr_start_capital').textContent=fmt(tr_start);
+    document.getElementById('tr_total_today').textContent=fmt(tr_today);
+    showPerf('tr',tr_pe,tr_pp);showPerf('ibkr',ib_pe,ib_pp);showPerf('bv',bv_pe,bv_pp);
+
+    const tS=tr_start+ib_s+bv_s,tE=tr_today+ib_e+bv_e,tI=tr_in+ib_in+bv_in,tO=tr_out+ib_out+bv_out;
+    const tPe=tE-tS-tI+tO,tPp=tS+tI>0?(tPe/(tS+tI))*100:0;
+
+    document.getElementById('totalStart').textContent=fmt(tS);
+    document.getElementById('totalEnd').textContent=fmt(tE);
+    document.getElementById('totalInflows').textContent=fmt(tI);
+    document.getElementById('totalOutflows').textContent=fmt(tO);
+    document.getElementById('totalPerformanceEuro').textContent=fmt(tPe);
+    document.getElementById('totalPerformanceEuro').className='stat-value '+(tPe>=0?'positive':'negative');
+    document.getElementById('totalPerformancePercent').textContent=fmtP(tPp);
+    document.getElementById('totalPerformancePercent').className='stat-value '+(tPp>=0?'positive':'negative');
+
+    updateChartsGesamt(tS,tE,tPe,tI);
+    updateChartBroker('chartIBKR',ib_s,ib_e,ib_in,ib_out,ib_pe);
+    updateChartBroker('chartBitvavo',bv_s,bv_e,bv_in,bv_out,bv_pe);
+}
+
+function showPerf(id,pe,pp){
+    document.getElementById(id+'_perf_euro').textContent=fmt(pe);
+    document.getElementById(id+'_perf_euro').className='result-value '+(pe>=0?'positive':'negative');
+    document.getElementById(id+'_perf_percent').textContent=fmtP(pp);
+    document.getElementById(id+'_perf_percent').className='result-value '+(pp>=0?'positive':'negative');
+}
+
+function updateChartsGesamt(tS,tE,tPe,tI){
+    const ctx=document.getElementById('chartGesamt');if(!ctx)return;
+    if(chartGesamt)chartGesamt.destroy();
+    chartGesamt=new Chart(ctx,{type:'doughnut',data:{labels:['Startkapital','Zugaenge','Performance'],datasets:[{data:[tS,tI,tPe],backgroundColor:['#667eea','#764ba2',tPe>=0?'#4CAF50':'#ff6b6b'],borderColor:'#fff',borderWidth:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}}}});
+}
+
+function updateChartBroker(cId,sv,ev,inf,out,pe){
+    const ctx=document.getElementById(cId);if(!ctx)return;
+    const old=cId==='chartIBKR'?chartIBKR:chartBitvavo;if(old)old.destroy();
+    const nc=new Chart(ctx,{type:'bar',data:{labels:['Start 01.01.','Zugaenge','Abfluesse','Performance','Heute'],datasets:[{label:'Wert (EUR)',data:[sv,inf,-out,pe,ev],backgroundColor:['#667eea','#4CAF50','#ff9800',pe>=0?'#4CAF50':'#ff6b6b','#764ba2'],borderColor:'#fff',borderWidth:1}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true}},scales:{y:{beginAtZero:true,ticks:{callback:function(v){return 'EUR '+v.toLocaleString('de-DE',{maximumFractionDigits:0});}}}}}});
+    if(cId==='chartIBKR')chartIBKR=nc;else chartBitvavo=nc;
+}
+
+function fmt(v){return new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'}).format(v);}
+function fmtP(v){return v.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2})+'%';}
+
+function exportCSV(){
+    const d=getDaten();
+    const tr_cs=d.tr.cash_today-d.tr.inflow+d.tr.outflow;
+    const tr_s=d.tr.securities_start+tr_cs,tr_t=d.tr.securities_today+d.tr.cash_today;
+    function cp(s,e,i,o){const pe=e-s-i+o;const pp=s+i>0?((pe/(s+i))*100).toFixed(2):0;return{euro:pe.toFixed(2),percent:pp};}
+    const trP=cp(tr_s,tr_t,d.tr.inflow,d.tr.outflow);
+    const ibP=cp(d.ibkr.start,d.ibkr.end,d.ibkr.inflow,d.ibkr.outflow);
+    const bvP=cp(d.bv.start,d.bv.end,d.bv.inflow,d.bv.outflow);
+    const tS=tr_s+d.ibkr.start+d.bv.start,tE=tr_t+d.ibkr.end+d.bv.end,tI=d.tr.inflow+d.ibkr.inflow+d.bv.inflow,tO=d.tr.outflow+d.ibkr.outflow+d.bv.outflow;
+    const tP=cp(tS,tE,tI,tO);
+    const csv='Broker;Startwert 01.01;Wert heute;Zugaenge;Abfluesse;Performance (EUR);Performance (%)\nTrade Republic;'+tr_s.toFixed(2)+';'+tr_t.toFixed(2)+';'+d.tr.inflow.toFixed(2)+';'+d.tr.outflow.toFixed(2)+';'+trP.euro+';'+trP.percent+'\nInteractive Brokers;'+d.ibkr.start.toFixed(2)+';'+d.ibkr.end.toFixed(2)+';'+d.ibkr.inflow.toFixed(2)+';'+d.ibkr.outflow.toFixed(2)+';'+ibP.euro+';'+ibP.percent+'\nBitvavo;'+d.bv.start.toFixed(2)+';'+d.bv.end.toFixed(2)+';'+d.bv.inflow.toFixed(2)+';'+d.bv.outflow.toFixed(2)+';'+bvP.euro+';'+bvP.percent+'\nGESAMT;'+tS.toFixed(2)+';'+tE.toFixed(2)+';'+tI.toFixed(2)+';'+tO.toFixed(2)+';'+tP.euro+';'+tP.percent;
+    const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+    const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='Portfolio_Performance_'+new Date().toISOString().split('T')[0]+'.csv';link.click();
+}
+
+function zuruecksetzen(){
+    if(confirm('Sollen wirklich ALLE Daten geloescht werden? Dies kann nicht rueckgaengig gemacht werden!')){
+        localStorage.removeItem('portfolioDaten');
+        document.querySelectorAll('input[type="number"]').forEach(i=>i.value='0');
+        berechnen();
+    }
+}
+</script>
+</body>
+</html>
