@@ -45,6 +45,8 @@
         .btn-save:hover { background: #5568d3; transform: translateY(-2px); }
         .btn-github-setup { background: #24292e; color: white; }
         .btn-github-setup:hover { background: #1f1f23; transform: translateY(-2px); }
+        .btn-load { background: #2196F3; color: white; }
+        .btn-load:hover { background: #1976D2; transform: translateY(-2px); }
         .info-box { background: #e3f2fd; border-left: 4px solid #2196F3; padding: 15px; border-radius: 6px; margin-bottom: 20px; color: #1565c0; }
         .github-setup { background: #f0f7ff; border: 2px solid #2196F3; padding: 20px; border-radius: 10px; margin-bottom: 20px; display: none; }
         .github-setup.active { display: block; }
@@ -61,19 +63,23 @@
 <body>
 <div class="container">
     <h1>&#128202; Portfolio Performance Tracker</h1>
-    <div class="info-box">&#128161; Tipp: Deine Daten werden automatisch gespeichert. Du kannst die Seite schliessen und später weitermachen.</div>
+    <div class="info-box">&#128161; Tipp: Verbinde GitHub-Sync auf jedem neuen Geraet einmalig &#8594; danach werden Daten automatisch geladen und gespeichert.</div>
 
     <div class="github-setup" id="githubSetup">
         <h3>&#9881;&#65039; GitHub-Synchronisation einrichten</h3>
         <label for="githubToken">GitHub Token (ghp_...):</label>
         <input type="password" id="githubToken" placeholder="Dein GitHub Token hier einfuegen">
-        <label for="githubRepo">GitHub Username/Repo (z.B. dein-name/portfolio-tracker):</label>
+        <label for="githubRepo">GitHub Username/Repo:</label>
         <input type="text" id="githubRepo" placeholder="dein-name/portfolio-tracker">
-        <button class="btn-save" onclick="setupGitHub()" style="width:100%;margin-top:15px;">&#9989; GitHub verbinden</button>
+        <button class="btn-save" onclick="setupGitHub()" style="width:100%;margin-top:15px;">&#9989; GitHub verbinden &amp; Daten laden</button>
     </div>
 
     <div class="sync-status" id="syncStatus" style="display:none;"></div>
-    <button class="btn-github-setup" onclick="toggleGitHubSetup()" style="width:100%;margin-bottom:20px;">&#9881;&#65039; GitHub-Sync einrichten</button>
+
+    <div style="display:flex;gap:10px;margin-bottom:20px;">
+        <button class="btn-github-setup" onclick="toggleGitHubSetup()" style="flex:1;">&#9881;&#65039; GitHub-Sync einrichten</button>
+        <button class="btn-load" onclick="manuellLaden()" id="btnLaden" style="flex:1;display:none;">&#8635; Von GitHub laden</button>
+    </div>
 
     <div class="gesamtubersicht">
         <h2>&#128200; Gesamtuebersicht Alle Broker</h2>
@@ -90,7 +96,7 @@
 
     <div class="broker-section">
         <h3>&#127970; Trade Republic</h3>
-        <div class="cash-note">&#128176; <strong>Cash-Position:</strong> Cash wird als Portfolio-Position behandelt. Das Cash von 01.01. wird automatisch berechnet.</div>
+        <div class="cash-note">&#128176; <strong>Cash-Position:</strong> Cash wird als Portfolio-Position behandelt.</div>
         <div class="input-grid">
             <div class="input-group"><label for="tr_securities_start">Wertpapiere am 01.01. (&#8364;)</label><input type="number" id="tr_securities_start" value="0"></div>
             <div class="input-group"><label for="tr_securities_today">Wertpapiere heute (&#8364;)</label><input type="number" id="tr_securities_today" value="0"></div>
@@ -143,40 +149,110 @@
         <button class="btn-export" onclick="exportCSV()">&#128229; Als CSV exportieren</button>
         <button class="btn-reset" onclick="zuruecksetzen()">&#128260; Zuruecksetzen</button>
     </div>
-    <div class="footer"><p>Deine Daten werden lokal im Browser gespeichert und koennen optional zu GitHub synchronisiert werden.</p></div>
+    <div class="footer"><p>Daten werden lokal UND in GitHub gespeichert &ndash; geraeteuebergreifend verfuegbar.</p></div>
 </div>
 
 <script>
 let chartGesamt=null,chartIBKR=null,chartBitvavo=null;
 let gitHubConfig={token:localStorage.getItem('gh_token')||'',repo:localStorage.getItem('gh_repo')||''};
 
-window.addEventListener('load',function(){ladenDaten();berechnen();if(gitHubConfig.token&&gitHubConfig.repo){document.getElementById('syncStatus').style.display='block';updateSyncStatus('Bereit zur Synchronisation','synced');}});
+window.addEventListener('load',function(){
+    ladenLokal();
+    berechnen();
+    if(gitHubConfig.token&&gitHubConfig.repo){
+        document.getElementById('syncStatus').style.display='block';
+        document.getElementById('btnLaden').style.display='block';
+        updateSyncStatus('&#8635; Lade Daten von GitHub...','syncing');
+        ladenVonGitHub();
+    }
+});
 
-document.querySelectorAll('input[type="number"]').forEach(input=>{input.addEventListener('change',function(){berechnen();speichern();if(gitHubConfig.token&&gitHubConfig.repo){speichernZuGitHub();}});input.addEventListener('input',berechnen);});
+document.querySelectorAll('input[type="number"]').forEach(input=>{
+    input.addEventListener('change',function(){
+        berechnen();
+        speichern();
+        if(gitHubConfig.token&&gitHubConfig.repo) speichernZuGitHub();
+    });
+    input.addEventListener('input',berechnen);
+});
 
-function toggleGitHubSetup(){document.getElementById('githubSetup').classList.toggle('active');}
+function toggleGitHubSetup(){
+    document.getElementById('githubSetup').classList.toggle('active');
+    if(gitHubConfig.token) document.getElementById('githubToken').value=gitHubConfig.token;
+    if(gitHubConfig.repo) document.getElementById('githubRepo').value=gitHubConfig.repo;
+}
 
 function setupGitHub(){
-    const token=document.getElementById('githubToken').value;
-    const repo=document.getElementById('githubRepo').value;
+    const token=document.getElementById('githubToken').value.trim();
+    const repo=document.getElementById('githubRepo').value.trim();
     if(!token||!repo){alert('Bitte fuelle beide Felder aus!');return;}
-    gitHubConfig.token=token;gitHubConfig.repo=repo;
-    localStorage.setItem('gh_token',token);localStorage.setItem('gh_repo',repo);
+    gitHubConfig.token=token;
+    gitHubConfig.repo=repo;
+    localStorage.setItem('gh_token',token);
+    localStorage.setItem('gh_repo',repo);
     document.getElementById('syncStatus').style.display='block';
-    updateSyncStatus('GitHub verbunden!','synced');
+    document.getElementById('btnLaden').style.display='block';
     document.getElementById('githubSetup').classList.remove('active');
-    testGitHubConnection();
+    updateSyncStatus('&#8635; Verbinde und lade Daten...','syncing');
+    // Direkt nach Verbindung: Daten von GitHub laden
+    ladenVonGitHub();
 }
 
-function testGitHubConnection(){
-    updateSyncStatus('Verbindung wird getestet...','syncing');
+function manuellLaden(){
+    if(!gitHubConfig.token||!gitHubConfig.repo){
+        alert('Bitte zuerst GitHub-Sync einrichten!');
+        return;
+    }
+    updateSyncStatus('&#8635; Lade Daten von GitHub...','syncing');
+    ladenVonGitHub();
+}
+
+function ladenVonGitHub(){
     const [owner,repo]=gitHubConfig.repo.split('/');
-    fetch('https://api.github.com/repos/'+owner+'/'+repo,{headers:{'Authorization':'token '+gitHubConfig.token,'Accept':'application/vnd.github.v3+json'}})
-    .then(r=>{if(r.ok){updateSyncStatus('GitHub verbunden!','synced');speichernZuGitHub();}else{updateSyncStatus('Verbindung fehlgeschlagen. Token/Repo korrekt?','error');}})
-    .catch(err=>{updateSyncStatus('Fehler: '+err.message,'error');});
+    fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/portfolio-data.json',{
+        headers:{'Authorization':'token '+gitHubConfig.token,'Accept':'application/vnd.github.v3.raw'}
+    })
+    .then(r=>{
+        if(r.ok) return r.json();
+        throw new Error('Datei nicht gefunden (noch keine Daten gespeichert?)');
+    })
+    .then(d=>{
+        felder(d);
+        berechnen();
+        speichern(); // auch lokal cachen
+        updateSyncStatus('&#9989; Von GitHub geladen ('+new Date().toLocaleTimeString('de-DE')+')','synced');
+    })
+    .catch(err=>{
+        updateSyncStatus('&#9888;&#65039; '+err.message+' &ndash; lokale Daten werden verwendet','error');
+    });
 }
 
-function updateSyncStatus(msg,status){const d=document.getElementById('syncStatus');d.textContent=msg;d.className='sync-status '+status;}
+function felder(d){
+    document.getElementById('tr_securities_start').value=d.tr.securities_start||0;
+    document.getElementById('tr_securities_today').value=d.tr.securities_today||0;
+    document.getElementById('tr_cash_today').value=d.tr.cash_today||0;
+    document.getElementById('tr_inflow').value=d.tr.inflow||0;
+    document.getElementById('tr_outflow').value=d.tr.outflow||0;
+    document.getElementById('ibkr_start').value=d.ibkr.start||0;
+    document.getElementById('ibkr_end').value=d.ibkr.end||0;
+    document.getElementById('ibkr_inflow').value=d.ibkr.inflow||0;
+    document.getElementById('ibkr_outflow').value=d.ibkr.outflow||0;
+    document.getElementById('bv_start').value=d.bv.start||0;
+    document.getElementById('bv_end').value=d.bv.end||0;
+    document.getElementById('bv_inflow').value=d.bv.inflow||0;
+    document.getElementById('bv_outflow').value=d.bv.outflow||0;
+}
+
+function ladenLokal(){
+    const gespeichert=localStorage.getItem('portfolioDaten');
+    if(gespeichert){felder(JSON.parse(gespeichert));}
+}
+
+function updateSyncStatus(msg,status){
+    const d=document.getElementById('syncStatus');
+    d.innerHTML=msg;
+    d.className='sync-status '+status;
+}
 
 function getDaten(){
     return {
@@ -189,62 +265,28 @@ function getDaten(){
 function speichern(){localStorage.setItem('portfolioDaten',JSON.stringify(getDaten()));}
 
 function speichernZuGitHub(){
-    if(!gitHubConfig.token||!gitHubConfig.repo)return;
+    if(!gitHubConfig.token||!gitHubConfig.repo) return;
     const daten={...getDaten(),lastUpdated:new Date().toISOString()};
     const content=JSON.stringify(daten,null,2);
     const encodedContent=btoa(unescape(encodeURIComponent(content)));
     const [owner,repo]=gitHubConfig.repo.split('/');
-    fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/portfolio-data.json',{headers:{'Authorization':'token '+gitHubConfig.token,'Accept':'application/vnd.github.v3+json'}})
+    updateSyncStatus('&#8635; Speichere...','syncing');
+    fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/portfolio-data.json',{
+        headers:{'Authorization':'token '+gitHubConfig.token,'Accept':'application/vnd.github.v3+json'}
+    })
     .then(r=>r.json())
     .then(data=>{
-        return fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/portfolio-data.json',{method:'PUT',headers:{'Authorization':'token '+gitHubConfig.token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify({message:'Portfolio update: '+new Date().toLocaleString('de-DE'),content:encodedContent,sha:data.sha||''})});
+        return fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/portfolio-data.json',{
+            method:'PUT',
+            headers:{'Authorization':'token '+gitHubConfig.token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
+            body:JSON.stringify({message:'Portfolio update: '+new Date().toLocaleString('de-DE'),content:encodedContent,sha:data.sha||''})
+        });
     })
-    .then(r=>{if(r.ok){updateSyncStatus('Zu GitHub synchronisiert','synced');}else{updateSyncStatus('Sync-Fehler. Lokal gespeichert.','error');}})
-    .catch(err=>{updateSyncStatus('Offline - Lokal gespeichert','error');});
-}
-
-function ladenDaten(){
-    const gespeichert=localStorage.getItem('portfolioDaten');
-    if(gespeichert){
-        const d=JSON.parse(gespeichert);
-        document.getElementById('tr_securities_start').value=d.tr.securities_start||0;
-        document.getElementById('tr_securities_today').value=d.tr.securities_today||0;
-        document.getElementById('tr_cash_today').value=d.tr.cash_today||0;
-        document.getElementById('tr_inflow').value=d.tr.inflow||0;
-        document.getElementById('tr_outflow').value=d.tr.outflow||0;
-        document.getElementById('ibkr_start').value=d.ibkr.start||0;
-        document.getElementById('ibkr_end').value=d.ibkr.end||0;
-        document.getElementById('ibkr_inflow').value=d.ibkr.inflow||0;
-        document.getElementById('ibkr_outflow').value=d.ibkr.outflow||0;
-        document.getElementById('bv_start').value=d.bv.start||0;
-        document.getElementById('bv_end').value=d.bv.end||0;
-        document.getElementById('bv_inflow').value=d.bv.inflow||0;
-        document.getElementById('bv_outflow').value=d.bv.outflow||0;
-    }
-    if(gitHubConfig.token&&gitHubConfig.repo)ladenDatenVonGitHub();
-}
-
-function ladenDatenVonGitHub(){
-    const [owner,repo]=gitHubConfig.repo.split('/');
-    fetch('https://api.github.com/repos/'+owner+'/'+repo+'/contents/portfolio-data.json',{headers:{'Authorization':'token '+gitHubConfig.token,'Accept':'application/vnd.github.v3.raw'}})
-    .then(r=>{if(r.ok)return r.json();throw new Error('nicht gefunden');})
-    .then(d=>{
-        document.getElementById('tr_securities_start').value=d.tr.securities_start||0;
-        document.getElementById('tr_securities_today').value=d.tr.securities_today||0;
-        document.getElementById('tr_cash_today').value=d.tr.cash_today||0;
-        document.getElementById('tr_inflow').value=d.tr.inflow||0;
-        document.getElementById('tr_outflow').value=d.tr.outflow||0;
-        document.getElementById('ibkr_start').value=d.ibkr.start||0;
-        document.getElementById('ibkr_end').value=d.ibkr.end||0;
-        document.getElementById('ibkr_inflow').value=d.ibkr.inflow||0;
-        document.getElementById('ibkr_outflow').value=d.ibkr.outflow||0;
-        document.getElementById('bv_start').value=d.bv.start||0;
-        document.getElementById('bv_end').value=d.bv.end||0;
-        document.getElementById('bv_inflow').value=d.bv.inflow||0;
-        document.getElementById('bv_outflow').value=d.bv.outflow||0;
-        berechnen();updateSyncStatus('Von GitHub geladen','synced');
+    .then(r=>{
+        if(r.ok) updateSyncStatus('&#9989; Gespeichert ('+new Date().toLocaleTimeString('de-DE')+')','synced');
+        else updateSyncStatus('&#9888;&#65039; Sync-Fehler. Lokal gespeichert.','error');
     })
-    .catch(()=>{console.log('GitHub nicht verfuegbar, lokale Daten werden verwendet');});
+    .catch(()=>updateSyncStatus('&#9888;&#65039; Offline &ndash; nur lokal gespeichert','error'));
 }
 
 function berechnen(){
@@ -254,8 +296,7 @@ function berechnen(){
     const tr_in=parseFloat(document.getElementById('tr_inflow').value)||0;
     const tr_out=parseFloat(document.getElementById('tr_outflow').value)||0;
     const tr_cs=tr_ct-tr_in+tr_out;
-    const tr_start=tr_ss+tr_cs;
-    const tr_today=tr_st+tr_ct;
+    const tr_start=tr_ss+tr_cs,tr_today=tr_st+tr_ct;
     const tr_pe=tr_today-tr_start-tr_in+tr_out;
     const tr_pp=tr_start+tr_in>0?(tr_pe/(tr_start+tr_in))*100:0;
 
@@ -275,7 +316,9 @@ function berechnen(){
 
     document.getElementById('tr_start_capital').textContent=fmt(tr_start);
     document.getElementById('tr_total_today').textContent=fmt(tr_today);
-    showPerf('tr',tr_pe,tr_pp);showPerf('ibkr',ib_pe,ib_pp);showPerf('bv',bv_pe,bv_pp);
+    showPerf('tr',tr_pe,tr_pp);
+    showPerf('ibkr',ib_pe,ib_pp);
+    showPerf('bv',bv_pe,bv_pp);
 
     const tS=tr_start+ib_s+bv_s,tE=tr_today+ib_e+bv_e,tI=tr_in+ib_in+bv_in,tO=tr_out+ib_out+bv_out;
     const tPe=tE-tS-tI+tO,tPp=tS+tI>0?(tPe/(tS+tI))*100:0;
@@ -333,7 +376,7 @@ function exportCSV(){
 }
 
 function zuruecksetzen(){
-    if(confirm('Sollen wirklich ALLE Daten geloescht werden? Dies kann nicht rueckgaengig gemacht werden!')){
+    if(confirm('Sollen wirklich ALLE Daten geloescht werden?')){
         localStorage.removeItem('portfolioDaten');
         document.querySelectorAll('input[type="number"]').forEach(i=>i.value='0');
         berechnen();
