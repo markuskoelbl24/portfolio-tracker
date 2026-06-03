@@ -1,22 +1,22 @@
 {
   "tr": {
-    "securities_start": 48690,
-    "securities_today": 59347,
-    "cash_today": 13658,
+    "securities_start": 0,
+    "securities_today": 0,
+    "cash_today": 0,
     "inflow": 0,
     "outflow": 0
   },
   "ibkr": {
-    "start": 14000,
-    "end": 17736,
+    "start": 0,
+    "end": 0,
     "inflow": 0,
     "outflow": 0
   },
   "bv": {
-    "start": 6800,
-    "end": 5273,
+    "start": 0,
+    "end": 0,
     "inflow": 0,
     "outflow": 0
   },
-  "lastUpdated": "2026-06-03T10:48:53.216Z"
+  "lastUpdated": "2026-06-03T11:30:59.450Z"
 }
