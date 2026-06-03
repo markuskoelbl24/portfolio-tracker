@@ -13,10 +13,10 @@
     "outflow": 0
   },
   "bv": {
-    "start": 0,
+    "start": 6800,
     "end": 5273,
     "inflow": 0,
     "outflow": 0
   },
-  "lastUpdated": "2026-06-03T10:22:55.509Z"
+  "lastUpdated": "2026-06-03T10:23:00.662Z"
 }
