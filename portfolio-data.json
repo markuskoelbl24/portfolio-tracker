@@ -1,7 +1,7 @@
 {
   "tr": {
     "securities_start": 0,
-    "securities_today": 0,
+    "securities_today": 59347,
     "cash_today": 0,
     "inflow": 0,
     "outflow": 0
@@ -18,5 +18,5 @@
     "inflow": 0,
     "outflow": 0
   },
-  "lastUpdated": "2026-06-03T10:23:00.662Z"
+  "lastUpdated": "2026-06-03T10:48:02.624Z"
 }
